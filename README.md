@@ -1,5 +1,5 @@
 # 04_BattleTank
 UnrealCourse Project 2
 
-#Update List
-*Initial
+# Update List
+* Initial
