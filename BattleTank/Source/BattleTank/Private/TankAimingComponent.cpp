@@ -18,17 +18,19 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
-
 }
 
 
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
+
 	if (!Barrel) { return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	auto time = GetWorld()->GetTimeSeconds();
+	TArray<AActor*> ActorIgnoreList;
 
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
@@ -37,17 +39,26 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
-		ESuggestProjVelocityTraceOption::DoNotTrace
+		false,
+		0.0f,
+		0.0f,
+		ESuggestProjVelocityTraceOption::DoNotTrace,
+		FCollisionResponseParams::DefaultResponseParam,
+		ActorIgnoreList,
+		true
 	);
 	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
+		UE_LOG(LogTemp,Warning,TEXT("solution found %f"),time)
 	}
+	UE_LOG(LogTemp, Warning, TEXT("NO solution found %f"),time)
+
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	auto DeltaRotator = AimDirection.Rotation() - Barrel->GetForwardVector().Rotation();
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotator.Pitch);
 }

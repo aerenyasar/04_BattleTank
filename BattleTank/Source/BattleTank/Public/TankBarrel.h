@@ -3,19 +3,28 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Engine/World.h"
 #include "Components/StaticMeshComponent.h"
 #include "TankBarrel.generated.h"
 
 /**
  * 
  */
-UCLASS()
+
+UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
 	
 public:
-	void Elevate(float DegreesPerSecond);
-	
-	
+	// -1 is max downward speed and +1 is max up movement
+	void Elevate(float RelativeSpeed);
+private:
+	UPROPERTY(EditAnywhere,Category=Setup)
+		float MaxDegreesPerSecond = 5;
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MaxElevationDegree = 40;
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MinElevationDegree = 0;
 };

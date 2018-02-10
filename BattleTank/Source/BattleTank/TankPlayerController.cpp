@@ -2,6 +2,7 @@
 
 #include "TankPlayerController.h"
 #include "Engine/World.h"
+#include"Tank.h"
 
 
 void ATankPlayerController::BeginPlay()
@@ -61,8 +62,6 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector Direction,FVector Location,FHitResult &Hit) const
 {
-	auto PlayerPawn = GetControlledTank();
-
 	return GetWorld()->LineTraceSingleByChannel(
 		Hit,
 		Location,
