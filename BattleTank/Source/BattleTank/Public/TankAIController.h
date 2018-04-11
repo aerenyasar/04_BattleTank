@@ -9,6 +9,7 @@
 #include "TankAIController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 
 /**
  * 
@@ -21,7 +22,11 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+	UPROPERTY(EditAnywhere, Category = Setup)
+	float AcceptanceRadius = 8000;
 private:
 	void BeginPlay() override;
-	
+
+	UTankAimingComponent* AimingComponent = nullptr;
 };
