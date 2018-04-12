@@ -45,9 +45,9 @@ public:
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Reloading;
+	EFiringState FiringStatus = EFiringState::Aiming;
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	int AmmoLeft = 3;
+	int AmmoLeft = 30;
 
 private:
 	
@@ -62,7 +62,7 @@ private:
 	FVector AimDirection;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-		float LaunchSpeed = 4000;
+		float LaunchSpeed = 6000;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
