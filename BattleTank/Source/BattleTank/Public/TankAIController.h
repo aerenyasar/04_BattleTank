@@ -22,11 +22,16 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	virtual void Tick(float DeltaTime) override;
 
+
 protected:
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float AcceptanceRadius = 8000;
 private:
 	void BeginPlay() override;
-
 	UTankAimingComponent* AimingComponent = nullptr;
+
+	virtual void SetPawn(APawn * InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath(); //DELEGATE METHOD
 };

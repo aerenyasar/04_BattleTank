@@ -3,6 +3,7 @@
 #include "../Public/TankAimingComponent.h"
 #include "../Public/TankBarrel.h"
 #include "../Public/TankTurret.h"
+#include "GameFramework/Controller.h"
 #include "../Public/Projectile.h"
 
 
@@ -91,6 +92,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 		FCollisionResponseParams::DefaultResponseParam,
 		ActorIgnoreList,
 		false
+
 	);
 	if (bHaveAimSolution)
 	{

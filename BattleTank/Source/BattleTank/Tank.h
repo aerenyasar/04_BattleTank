@@ -6,22 +6,29 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()
 public:
 
+	//Returns Current Health Between 0 and 1
+	UFUNCTION(BlueprintPure,Category="Health")
+	float GetHealthPercent() const;
+	FTankDelegate OnDeath;
+
 private:
 	// Sets default values for this pawn's properties
 	ATank();
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	int32 MaxHealth = 100;
+	int32 CurrentHealth;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-private:	
-	// Called to bind functionality to input
-
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 };
