@@ -18,14 +18,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 		void SetThrottle(float Throttle);
 	UPROPERTY(EditDefaultsOnly)
-		float TrackMaxDrivingForce =400000; //40 ton tank 10 m/s2 acc
+		float TrackMaxDrivingForce =200000; //40 ton tank 10 m/s2 acc
 private:
-	virtual void BeginPlay() override;
 	UTankTrack();
-	void ApplySidewaysForce();
 	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
-		UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
-	void DriveTrack();
-	float CurrentThrottle = 0;
+	void DriveTrack(float CurrentThrottle);
+
+	TArray<class ASprungWheel*> GetWheels() const;
 };
